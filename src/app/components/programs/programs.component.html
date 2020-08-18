@@ -1,0 +1,67 @@
+<div class="container">
+    <h1 class="heading-title">SpaceX Launch Programs</h1>
+    <div class="main">
+        <div class="sidebar">
+            <h2>Filters</h2>
+            <h3>Launch Year</h3>
+            <div class="filter-tabs">
+                <ul>
+                    <li *ngFor="let year of filterIndex">
+                        <button 
+                        [ngClass]="(selectedIndex === year) ? 'active' : ''"
+                        (click)="getPrograms(year)"
+                         >{{ year }}</button>
+                    </li>
+                </ul>
+            </div>
+            <h3>Successful Launch</h3>
+            <div class="filter-tabs">
+                <ul>
+                    <li *ngFor="let value of launchIndex">
+                        <button
+                        [ngClass]="(launchSelectedIndex === value) ? 'active' : ''"
+                        (click)="handleLaunchSuccess(value)"
+                        >{{ value }}</button>
+                    </li>
+                </ul>
+            </div>
+            <h3>Successful Landing</h3>
+            <div class="filter-tabs">
+                <ul>
+                    <li *ngFor="let value of landIndex">
+                        <button
+                        [ngClass]="(landSelectedIndex === value) ? 'active' : ''"
+                        (click)="handleLandSuccess(value)"
+                        >{{ value }}</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            <div *ngIf="isLoading">Loading programs...</div>
+            <div *ngIf="emptyResult">No result found for matching filter.</div>
+
+            <div class="ui-card" *ngFor="let prog of programs">
+                <div class="ui-card-inner">
+                    <div class="ui-card-img">
+                        <img src="{{ prog.mission_patch_small}}" />
+                    </div>
+                    <div class="ui-card-content">
+                        <h4>{{ prog.mission_name }} #{{ prog.flight_number }}</h4>
+                        <h5>Mission Ids: <Span>.(List Mission Ids)</Span></h5>
+                        <h5>Launch Year: <Span>{{ prog.launch_year }}</Span></h5>
+                        <h5>Successful Launch: <Span>{{ prog.launch_success }}</Span></h5>
+                        <h5>Successful Landing: <Span>{{ prog.land_success }}</Span></h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer>
+        <div class="copyright-info">
+            <p><strong>Developed by: </strong> Jitendra Rana</p>
+        </div>
+    </footer>
+</div>
